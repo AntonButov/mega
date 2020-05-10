@@ -16,6 +16,30 @@ public class ModelDetail extends BaseObservable {
     @Expose
     String name;
 
+    @SerializedName("img")
+    @Expose
+    String img;
+
+    @SerializedName("description")
+    @Expose
+    String description;
+
+    @SerializedName("lat")
+    @Expose
+    String lat;
+
+    @SerializedName("lon")
+    @Expose
+    String lon;
+
+    @SerializedName("www")
+    @Expose
+    String www;
+
+    @SerializedName("phone")
+    @Expose
+    String phone;
+
     public String toString() {
         return id + " " + name;
     }
