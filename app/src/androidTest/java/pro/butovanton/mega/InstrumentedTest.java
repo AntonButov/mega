@@ -89,19 +89,14 @@ public class InstrumentedTest {
     @Test
     public void testRecicler() {
         Espresso.onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(isDisplayed()));
-        Espresso.onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
    }
 
     @Test
     public void testRecyclerClick() throws InterruptedException {
-        doWaitFor(10000);
+        doWaitFor(3000);
         Espresso.onView(withId(R.id.reciclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10,click()));
-        //Thread.sleep( 1000  );
-      //  Espresso.onView(isRoot()).perform(ViewActions.waitFor(5000));
-        doWaitFor(10000);
+        doWaitFor(3000);
         Espresso.onView(withId(R.id.imageViewSecond)).check(ViewAssertions.matches(isDisplayed()));
-      //  Thread.sleep( 10000  );
-        doWaitFor(10000);
     }
 
     private static ViewAction doWaitFor(final long millis) {
@@ -118,6 +113,7 @@ public class InstrumentedTest {
 
             @Override
             public void perform(UiController uiController, final View view) {
+                Log.d("DEBUG", "wait");
                 uiController.loopMainThreadForAtLeast(millis);
             }
         };
