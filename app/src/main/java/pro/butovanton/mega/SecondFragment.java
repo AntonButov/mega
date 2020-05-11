@@ -22,7 +22,7 @@ import pro.butovanton.mega.databinding.FragmentSecondBinding;
 public class SecondFragment extends Fragment {
 
     private ImageView imageView;
-    private FragmentSecondBinding binding;
+    public FragmentSecondBinding binding;
     private ViewModelDetail viewModelDetail;
 
     @Override
@@ -45,6 +45,7 @@ public class SecondFragment extends Fragment {
         viewModelDetail.getModelDetail(Integer.parseInt(id)).observe(getViewLifecycleOwner(), new Observer<ModelDetail>() {
             @Override
             public void onChanged(ModelDetail modelDetail) {
+                binding.setModelDetail(modelDetail);
                 Picasso
                         .get()
                         .load(modelDetail.img)

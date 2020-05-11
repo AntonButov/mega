@@ -19,6 +19,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.hamcrest.Matcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,10 +28,13 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.actionWithAssertions;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 
@@ -86,36 +90,19 @@ public class InstrumentedTest {
     @Rule public ActivityScenarioRule<MainActivity> activityScenarioRule =
             new ActivityScenarioRule<MainActivity>(MainActivity.class);
 
-    @Test
-    public void testRecicler() {
-        Espresso.onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(isDisplayed()));
-   }
+    @Before
+    public void startLoad() throws InterruptedException {
+        Thread.sleep(4000);
+    }
 
     @Test
     public void testRecyclerClick() throws InterruptedException {
-        doWaitFor(3000);
-        Espresso.onView(withId(R.id.reciclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10,click()));
-        doWaitFor(3000);
-        Espresso.onView(withId(R.id.imageViewSecond)).check(ViewAssertions.matches(isDisplayed()));
+        onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(isDisplayed()))
+                .perform(RecyclerViewActions.scrollToPosition(13))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(13,click()));
+        Thread.sleep(1000);
+        onView(withText("Жили-Были")).check(ViewAssertions.matches(isDisplayed()));
     }
 
-    private static ViewAction doWaitFor(final long millis) {
-        return new ViewAction() {
-            @Override
-            public Matcher<View> getConstraints() {
-                return isRoot();
-            }
+ }
 
-            @Override
-            public String getDescription() {
-                return "Wait for " + millis + " milliseconds.";
-            }
-
-            @Override
-            public void perform(UiController uiController, final View view) {
-                Log.d("DEBUG", "wait");
-                uiController.loopMainThreadForAtLeast(millis);
-            }
-        };
-    }
-}

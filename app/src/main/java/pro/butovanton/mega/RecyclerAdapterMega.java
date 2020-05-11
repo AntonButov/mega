@@ -47,20 +47,11 @@ class RecyclerAdapterMega extends RecyclerView.Adapter<RecyclerAdapterMega.ViewH
     @Override
     public void onBindViewHolder(@NonNull final RecyclerAdapterMega.ViewHolderMega holder, final int position) {
         holder.idTextView.setText(listModel.get(position).name);
-        Log.d("DEBUG", "position " + position);
-
-  /*      String s = listModel.get(position).img;
-        Glide
-                .with(context)
-                .load(s)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(holder.imageView);*/
 
         Picasso
                 .get()
                 .load(listModel.get(position).img)
                 .into(holder.imageView);
-   //      holder.imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.pngtest));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
