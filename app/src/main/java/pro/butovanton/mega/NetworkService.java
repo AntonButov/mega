@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    public static final String BASE_URL = " http://megakohz.bget.ru/test_task/";
+    public static final String BASE_URL = "http://megakohz.bget.ru/test_task/";
     private Retrofit mRetrofit;
 
     private NetworkService() {

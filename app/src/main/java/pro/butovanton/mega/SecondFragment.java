@@ -7,8 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import pro.butovanton.mega.R;
 import pro.butovanton.mega.databinding.FragmentSecondBinding;
@@ -17,15 +23,13 @@ public class SecondFragment extends Fragment {
 
     private ImageView imageView;
     private FragmentSecondBinding binding;
-
+    private ViewModelDetail viewModelDetail;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+            Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false);
-
         return binding.getRoot();
     }
 
@@ -37,6 +41,16 @@ public class SecondFragment extends Fragment {
         Bundle bundle = getArguments();
         String id = bundle.getString("id");
 
-
+        viewModelDetail = new ViewModelDetail();
+        viewModelDetail.getModelDetail(Integer.parseInt(id)).observe(getViewLifecycleOwner(), new Observer<ModelDetail>() {
+            @Override
+            public void onChanged(ModelDetail modelDetail) {
+                Picasso
+                        .get()
+                        .load(modelDetail.img)
+                        .into(imageView);
+            }
+        });
     }
+
 }

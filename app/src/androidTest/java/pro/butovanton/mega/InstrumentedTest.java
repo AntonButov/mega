@@ -2,12 +2,15 @@ package pro.butovanton.mega;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -15,6 +18,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,8 +29,10 @@ import java.util.concurrent.TimeUnit;
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
+
 
 @RunWith(AndroidJUnit4.class)
 public class InstrumentedTest {
@@ -87,7 +93,33 @@ public class InstrumentedTest {
    }
 
     @Test
-    public void testRecyclerClick() {
+    public void testRecyclerClick() throws InterruptedException {
+        doWaitFor(10000);
         Espresso.onView(withId(R.id.reciclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10,click()));
+        //Thread.sleep( 1000  );
+      //  Espresso.onView(isRoot()).perform(ViewActions.waitFor(5000));
+        doWaitFor(10000);
+        Espresso.onView(withId(R.id.imageViewSecond)).check(ViewAssertions.matches(isDisplayed()));
+      //  Thread.sleep( 10000  );
+        doWaitFor(10000);
+    }
+
+    private static ViewAction doWaitFor(final long millis) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isRoot();
+            }
+
+            @Override
+            public String getDescription() {
+                return "Wait for " + millis + " milliseconds.";
+            }
+
+            @Override
+            public void perform(UiController uiController, final View view) {
+                uiController.loopMainThreadForAtLeast(millis);
+            }
+        };
     }
 }

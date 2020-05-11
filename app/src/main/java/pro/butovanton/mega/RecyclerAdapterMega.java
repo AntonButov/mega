@@ -1,6 +1,7 @@
 package pro.butovanton.mega;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,11 +26,13 @@ class RecyclerAdapterMega extends RecyclerView.Adapter<RecyclerAdapterMega.ViewH
     private ItemClickListener itemClickListener;
     private List<MModel> listModel;
     private final LayoutInflater mInflater;
+    private Context context;
 
     public RecyclerAdapterMega(ItemClickListener clickListener, Context context) {
         this.itemClickListener = clickListener;
         mInflater = LayoutInflater.from(context);
         listModel = new ArrayList<>();
+        this.context = context;
     }
 
     @NonNull
@@ -43,10 +48,19 @@ class RecyclerAdapterMega extends RecyclerView.Adapter<RecyclerAdapterMega.ViewH
     public void onBindViewHolder(@NonNull final RecyclerAdapterMega.ViewHolderMega holder, final int position) {
         holder.idTextView.setText(listModel.get(position).name);
         Log.d("DEBUG", "position " + position);
+
+  /*      String s = listModel.get(position).img;
+        Glide
+                .with(context)
+                .load(s)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.imageView);*/
+
         Picasso
                 .get()
                 .load(listModel.get(position).img)
                 .into(holder.imageView);
+   //      holder.imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.pngtest));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
