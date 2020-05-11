@@ -5,6 +5,13 @@ import android.util.Log;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.ViewAction;
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -16,6 +23,9 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
@@ -56,14 +66,28 @@ public class InstrumentedTest {
     public void modelDetail(int id) throws Throwable {
         CountDownLatch count = new CountDownLatch(1);
         ViewModelDetail viewModelDetail = new ViewModelDetail();
-        viewModelDetail.getModelDetail(id).observeForever(new Observer<List<ModelDetail>>() {
+        viewModelDetail.getModelDetail(id).observeForever(new Observer<ModelDetail>() {
             @Override
-            public void onChanged(List<ModelDetail> modelDetail) {
-                assertTrue(modelDetail.size()>0);
-                Log.d("DEBUG", modelDetail.get(0).toString());
+            public void onChanged(ModelDetail modelDetail) {
+                assertFalse(modelDetail == null);
+                Log.d("DEBUG", modelDetail.toString());
                 count.countDown();
                 }
         });
        if (!count.await(1, TimeUnit.MINUTES)) throw new Throwable("no Data id detail " + id);
    }
+
+    @Rule public ActivityScenarioRule<MainActivity> activityScenarioRule =
+            new ActivityScenarioRule<MainActivity>(MainActivity.class);
+
+    @Test
+    public void testRecicler() {
+        Espresso.onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(isDisplayed()));
+        Espresso.onView(withId(R.id.reciclerView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+   }
+
+    @Test
+    public void testRecyclerClick() {
+        Espresso.onView(withId(R.id.reciclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(10,click()));
+    }
 }

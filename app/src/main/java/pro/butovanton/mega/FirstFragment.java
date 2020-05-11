@@ -1,6 +1,7 @@
 package pro.butovanton.mega;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,14 +51,15 @@ public class FirstFragment extends Fragment implements ItemClickListener {
         viewModelModel = new ViewModelProvider(this).get(ViewModelModel.class);
         viewModelModel.getModel().observe(getViewLifecycleOwner(), new Observer<List<MModel>>() {
             @Override
-            public void onChanged(List<MModel> mModels) {
-
+            public void onChanged(List<MModel> models) {
+                adapter.set(models);
             }
         });
     }
 
     @Override
     public void onItemClick(String id) {
+        Log.d("DEBUG", "click " + id);
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         NavHostFragment.findNavController(this)

@@ -29,6 +29,9 @@ public class ViewModelModel extends ViewModel {
             jsonPlaceHolderApi.getModel().enqueue(new Callback<List<MModel>>() {
                 @Override
                 public void onResponse(Call<List<MModel>> call, Response<List<MModel>> response) {
+                    List<MModel> models = response.body();
+                    for ( MModel model : models)
+                        model.setImg(NetworkService.BASE_URL + model.getImg());
                     model.setValue(response.body());
                 }
 

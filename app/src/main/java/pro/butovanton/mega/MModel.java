@@ -18,6 +18,22 @@ public class MModel {
     String img;
 
  public String toString() {
-     return id + ", " + name + "\n";
+     return id + ", " + name + ", " + img + "\n";
  }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 }

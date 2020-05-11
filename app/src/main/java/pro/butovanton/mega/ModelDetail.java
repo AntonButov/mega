@@ -41,6 +41,14 @@ public class ModelDetail extends BaseObservable {
     String phone;
 
     public String toString() {
-        return id + " " + name;
+        return id + " " + name + " " + img + " " + description + " " + lat + " " + lon + " " + www + " " + phone + "\n";
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
