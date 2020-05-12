@@ -21,7 +21,7 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentSecondBinding
     private var viewModelDetail: ViewModelDetail? = null
-    private var gleMap: GoogleMap? = null
+    private var gMap: GoogleMap? = null
     private var mDetail: ModelDetail? = null
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +37,12 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
         val id = bundle!!.getString("id")
         viewModelDetail = ViewModelDetail()
         viewModelDetail!!.getModelDetail(id!!.toInt()).observe(viewLifecycleOwner, Observer { modelDetail ->
-            if (modelDetail.phoneVisible) binding.textTel.visibility = View.VISIBLE else binding.textTel.visibility = View.GONE
-            if (modelDetail.wwwVisible) binding.textViewWww.visibility = View.VISIBLE else binding.textViewWww.visibility = View.GONE
+            if (modelDetail.phoneVisible)
+                binding.textTel.visibility = View.VISIBLE
+            else binding.textTel.visibility = View.GONE
+            if (modelDetail.wwwVisible)
+                binding.textViewWww.visibility = View.VISIBLE
+            else binding.textViewWww.visibility = View.GONE
             binding.modelDetail = modelDetail
             Picasso
                     .get()
@@ -54,14 +58,14 @@ class SecondFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         val RECT = 1
-        gleMap = googleMap
+        gMap = googleMap
         val longitude = mDetail!!.lon!!.toDouble()
         val latitude = mDetail!!.lat!!.toDouble()
         val place = LatLng(latitude, longitude)
-        gleMap!!.addMarker(MarkerOptions().position(place).title(mDetail!!.name))
+        gMap!!.addMarker(MarkerOptions().position(place).title(mDetail!!.name))
         val AUSTRALIA = LatLngBounds(
                 LatLng(latitude - RECT, longitude - RECT), LatLng(latitude + RECT, longitude + RECT))
-        gleMap!!.moveCamera(CameraUpdateFactory.newLatLngBounds(AUSTRALIA, 0))
+        gMap!!.moveCamera(CameraUpdateFactory.newLatLngBounds(AUSTRALIA, 0))
     }
 
     override fun onResume() {
