@@ -92,7 +92,7 @@ public class InstrumentedTest {
 
     @Before
     public void startLoad() throws InterruptedException {
-        Thread.sleep(4000);
+        Thread.sleep(1000);
     }
 
     @Test
