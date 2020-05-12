@@ -72,7 +72,15 @@ public class ModelDetail extends BaseObservable {
         return phone;
     }
 
+    public boolean getPhoneVisible() {
+        return !phone.equals("");
+    }
+
     public String getWww() {
         return www;
+    }
+
+    public boolean getWwwVisible() {
+        return !www.equals("");
     }
 }

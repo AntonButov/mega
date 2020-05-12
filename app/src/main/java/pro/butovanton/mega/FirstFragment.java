@@ -24,7 +24,6 @@ public class FirstFragment extends Fragment implements ItemClickListener {
     private RecyclerView recyclerView;
     private RecyclerAdapterMega adapter;
     private LinearLayoutManager lm;
-    private ProgressBar progressBar;
 
     private ViewModelModel viewModelModel;
 
@@ -38,8 +37,6 @@ public class FirstFragment extends Fragment implements ItemClickListener {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        progressBar = view.findViewById(R.id.progressBar);
 
         recyclerView = view.findViewById(R.id.reciclerView);
         adapter = new RecyclerAdapterMega(this, getContext());

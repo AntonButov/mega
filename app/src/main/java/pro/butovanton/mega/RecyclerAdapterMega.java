@@ -40,7 +40,6 @@ class RecyclerAdapterMega extends RecyclerView.Adapter<RecyclerAdapterMega.ViewH
     public ViewHolderMega onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item, parent, false);
         ViewHolderMega vh = new ViewHolderMega(view);
-
         return vh;
     }
 
@@ -76,7 +75,6 @@ class RecyclerAdapterMega extends RecyclerView.Adapter<RecyclerAdapterMega.ViewH
     public class ViewHolderMega extends RecyclerView.ViewHolder {
         private final TextView idTextView;
         private final ImageView imageView;
-
 
         public ViewHolderMega(View view) {
             super(view);

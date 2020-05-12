@@ -52,15 +52,25 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         viewModelDetail.getModelDetail(Integer.parseInt(id)).observe(getViewLifecycleOwner(), new Observer<ModelDetail>() {
             @Override
             public void onChanged(ModelDetail modelDetail) {
+                if (modelDetail.getPhoneVisible())
+                    binding.textTel.setVisibility(View.VISIBLE);
+                 else
+                    binding.textTel.setVisibility(View.GONE);
+                if (modelDetail.getWwwVisible())
+                    binding.textViewWww.setVisibility(View.VISIBLE);
+                else
+                    binding.textViewWww.setVisibility(View.GONE);
+
                 binding.setModelDetail(modelDetail);
                 Picasso
                         .get()
                         .load(modelDetail.img)
                         .into(binding.imageViewSecond);
-                if (modelDetail.getLon().equals("0")) binding.mapView.setVisibility(View.INVISIBLE);
+                if (modelDetail.getLon().equals("0")) binding.mapView.setVisibility(View.GONE);
                 else {
                     binding.mapView.setVisibility(View.VISIBLE);
                     mDetail = modelDetail;
+
                     binding.mapView.getMapAsync(SecondFragment.this::onMapReady);
                 }
             }

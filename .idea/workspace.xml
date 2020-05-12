@@ -22,10 +22,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/MapsActivity2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/FirstFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/FirstFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/ModelDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/ModelDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/RecyclerAdapterMega.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/RecyclerAdapterMega.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/SecondFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/pro/butovanton/mega/SecondFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_second.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_second.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +35,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.1.235:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="BV5800PRORU08403" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -513,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589277502587</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Карта работает.">
+      <created>1589285247807</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1589285247808</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -539,14 +548,15 @@
     <MESSAGE value="Оптимизировал задержки." />
     <MESSAGE value="Тесты работают." />
     <MESSAGE value="Mapa заработала." />
-    <option name="LAST_COMMIT_MESSAGE" value="Mapa заработала." />
+    <MESSAGE value="Карта работает." />
+    <option name="LAST_COMMIT_MESSAGE" value="Карта работает." />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="app">
         <watch expression="modelDetail.getLon()" language="JAVA" />
         <watch expression="modelDetail.getLat()" language="JAVA" />
-        <watch expression="listModel.get(position).img" language="JAVA" />
+        <watch expression="modelDetail.getWww()" language="JAVA" />
         <watch expression="mDetail.getLat()" language="JAVA" />
         <watch expression="Double.parseDouble(mDetail.getLat())" language="JAVA" />
         <watch expression="Double.parseDouble(mDetail.getLon())" language="JAVA" />
