@@ -2,6 +2,7 @@ package pro.butovanton.mega;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
@@ -31,23 +33,18 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
     public FragmentSecondBinding binding;
     private ViewModelDetail viewModelDetail;
     private GoogleMap gleMap;
+    private ModelDetail mDetail;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false);
         binding.mapView.onCreate(savedInstanceState);
-        binding.mapView.getMapAsync(this);
         return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
-
-
         Bundle bundle = getArguments();
         String id = bundle.getString("id");
 
@@ -60,31 +57,51 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                         .get()
                         .load(modelDetail.img)
                         .into(binding.imageViewSecond);
-            }
-        });
-
-        binding.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), MapsActivity2.class);
-               // myIntent.putExtra("key", value); //Optional parameters
-                getActivity().startActivity(myIntent);
+                if (modelDetail.getLon().equals("0")) binding.mapView.setVisibility(View.INVISIBLE);
+                else {
+                    binding.mapView.setVisibility(View.VISIBLE);
+                    mDetail = modelDetail;
+                    binding.mapView.getMapAsync(SecondFragment.this::onMapReady);
+                }
             }
         });
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        int RECT = 1;
         this.gleMap = googleMap;
+        Double longitude = Double.parseDouble(mDetail.getLon());
+        Double latitude = Double.parseDouble(mDetail.getLat());
+        LatLng place = new LatLng(latitude, longitude);
+        gleMap.addMarker(new MarkerOptions().position(place).title(mDetail.getName()));
 
-        LatLng sydney = new LatLng(-34, 151);
-        gleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        gleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLngBounds AUSTRALIA = new LatLngBounds(
+                new LatLng(latitude - RECT, longitude - RECT), new LatLng(latitude + RECT, longitude + RECT));
+        gleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(AUSTRALIA, 0));
     }
 
     @Override
     public void onResume() {
         super.onResume();
         binding.mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding.mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        binding.mapView.onLowMemory();
     }
 }
